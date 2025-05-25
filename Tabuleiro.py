@@ -2,23 +2,21 @@ class Tabuleiro:
     def __init__(self, a=20, l=40):
         self.altura = a
         self.largura = l
-        self.robos = []  # Lista de tuplas: (robo, x, y)
+        self.robos = []
 
-    def adicionarRobos(self, robo, x, y):
-        if 0 <= x < self.largura and 0 <= y < self.altura:
-            self.robos.append((robo, x, y))
+    def adicionarRobo(self, robo):
+        if 0 <= robo.x < self.largura and 0 <= robo.y < self.altura:
+            self.robos.append(robo)
         else:
             raise Exception("Posição do robô fora dos limites do tabuleiro.")
 
     def Apresentar(self):
-        # Cria matriz vazia
         matriz = [[' ' for _ in range(self.largura)] for _ in range(self.altura)]
 
-        # Posiciona robôs no tabuleiro
-        for idx, (robo, x, y) in enumerate(self.robos):
-            matriz[y][x] = str(idx)  
+        for robo in self.robos:
+            if robo.status == 'vivo':
+                matriz[robo.y][robo.x] = str(robo.id)[0]  # Mostra o primeiro caractere do ID
 
-        # Imprime com moldura
         print('+' + '-' * self.largura + '+')
         for linha in matriz:
             print('|' + ''.join(linha) + '|')
