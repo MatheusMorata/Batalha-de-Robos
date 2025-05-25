@@ -13,8 +13,14 @@ class Robo:
             self.energia = E
             self.velocidade = V
 
+    # Poder atualiza dinamicamente
+    @property
+    def poder(self):
+        return 2 * self.forca + self.energia
+
     # Retorna os atributos do robô
     def status(self,):
         print('Força: ', self.forca)
         print('Energia: ', self.energia)
         print('Velocidade: ', self.velocidade)
+        print('Poder: ', self.poder)
