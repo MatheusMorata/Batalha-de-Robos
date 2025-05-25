@@ -4,18 +4,21 @@ from Tabuleiro import Tabuleiro
 # Debuggando
 
 try:
-    # Criação dos robôs
-    r1 = Robo(5, 50, 3)
-    r2 = Robo(8, 90, 2)
-
+    
     # Criação do tabuleiro
     tab = Tabuleiro()
 
-    # Adiciona robôs nas posições desejadas
-    tab.adicionarRobos(r1, x=5, y=3)
-    tab.adicionarRobos(r2, x=10, y=6)
+    # Criação dos robôs
+    r1 = Robo('A', 5, 50, 3, 5, 3, 'vivo')
+    r2 = Robo('B', 8, 90, 2, 10, 6, 'vivo')
+    r3 = Robo('C', 7, 20, 1, 15, 2, 'vivo')  
 
-    # Exibe o tabuleiro com os robôs
+    # Adiciona robôs no tabuleiro
+    tab.adicionarRobo(r1)
+    tab.adicionarRobo(r2)
+    tab.adicionarRobo(r3)
+
+    # Exibe o tabuleiro
     tab.Apresentar()
 except Exception as e:
     print(e)

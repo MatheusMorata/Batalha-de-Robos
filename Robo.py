@@ -8,8 +8,8 @@ class Robo:
             raise Exception('Energia deve está no intervalo de 10 a 100.')
         elif(V < 1 or V > 5):
             raise Exception('Velocidade deve está no intervalo de 1 a 5.')
-        elif(S != 'morto' and 'vivo'):
-            raise Exception('Velocidade deve está no intervalo de 1 a 5.')
+        elif(S != 'morto' and S != 'vivo'):
+            raise Exception('Status deve ser: morto ou vivo.')
         else:
             self.id = ID
             self.forca = F
