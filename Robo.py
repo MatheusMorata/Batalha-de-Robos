@@ -25,12 +25,6 @@ class Robo:
     def poder(self):
         return 2 * self.forca + self.energia
     
-    def run(self):
-        #t1 = Thread(target=self.sense_act)
-        t2 = Thread(target=self.housekeeping)
-        #t1.start()
-        t2.start()
-
     #def sense_act(self):
     
     def housekeeping(self):
