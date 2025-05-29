@@ -1,5 +1,7 @@
 from threading import Thread
 from time import sleep
+import random
+
 class Robo:
 
     # Construtor
@@ -34,8 +36,7 @@ class Robo:
         t1.join()
         t2.join()
 
-    def sense_act(self):
-        print('Teste...')
-
-    def housekeeping(self):
-        print('teste2...')
+    #def sense_act(self):
+    
+    #def housekeeping(self):
+        
