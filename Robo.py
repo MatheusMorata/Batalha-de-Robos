@@ -1,3 +1,5 @@
+from threading import Thread
+from time import sleep
 class Robo:
 
     # Construtor
@@ -23,3 +25,17 @@ class Robo:
     @property
     def poder(self):
         return 2 * self.forca + self.energia
+    
+    def run(self):
+        t1 = Thread(target=self.sense_act)
+        t2 = Thread(target=self.housekeeping)
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
+
+    def sense_act(self):
+        print('Teste...')
+
+    def housekeeping(self):
+        print('teste2...')

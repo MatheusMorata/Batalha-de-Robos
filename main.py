@@ -2,7 +2,6 @@ from Robo import Robo
 from Tabuleiro import Tabuleiro
 
 # Debuggando
-
 if __name__ == '__main__':
     try:
         
@@ -23,5 +22,6 @@ if __name__ == '__main__':
 
         # Exibe o tabuleiro
         tab.Apresentar()
+
     except Exception as e:
         print(e)
