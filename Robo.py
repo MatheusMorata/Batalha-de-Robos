@@ -38,5 +38,6 @@ class Robo:
 
     #def sense_act(self):
     
-    #def housekeeping(self):
-        
+    def housekeeping(self):
+        self.energia -= 1
+        print(f'{self.id} Energia total: {self.energia}')
