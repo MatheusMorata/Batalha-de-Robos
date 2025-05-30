@@ -1,5 +1,5 @@
-from threading import Thread
 from time import sleep
+import random
 
 class Robo:
 
@@ -25,7 +25,21 @@ class Robo:
     def poder(self):
         return 2 * self.forca + self.energia
     
-    #def sense_act(self):
+    def sense_act(self):
+        while self.energia > 0:
+            direcao = random.choice(['cima', 'baixo', 'esquerda', 'direita'])
+
+            if direcao == 'cima' and self.y > 0:
+                self.y -= 1
+            elif direcao == 'baixo' and self.y < 39:
+                self.y += 1
+            elif direcao == 'esquerda' and self.x > 0:
+                self.x -= 1
+            elif direcao == 'direita' and self.x < 19:
+                self.x += 1
+
+            self.housekeeping()
+            sleep(1)
     
     def housekeeping(self):
         self.energia -= 1
