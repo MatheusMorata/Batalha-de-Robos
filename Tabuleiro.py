@@ -1,10 +1,10 @@
 class Tabuleiro:
-    def __init__(self, tabuleiro, robos, baterias, linhas, colunas):
-        self.tabuleiro = tabuleiro
-        self.robos = robos
-        self.baterias = baterias
-        self.linhas = linhas
-        self.colunas = colunas
+    def __init__(self, T, R, B, L, C):
+        self.tabuleiro = T
+        self.robos = R
+        self.baterias = B
+        self.linhas = L
+        self.colunas = C
 
     def Apresentar(self):
         # Cria uma matriz para visualização correta (linhas x colunas)
