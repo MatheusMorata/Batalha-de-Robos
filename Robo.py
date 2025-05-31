@@ -18,7 +18,7 @@ class Robo:
             self.velocidade = V
             self.x = X
             self.y = Y
-            self.status = 'vivo'
+            self.vivo = True
 
     # Poder atualiza dinamicamente
     @property
@@ -39,8 +39,8 @@ class Robo:
             sleep(1)
 
     def housekeeping(self):
-        while self.status == 'vivo':
+        while self.vivo == True:
             self.energia -= 1
             print(f'{self.id} Energia: {self.energia}')
             if(self.energia < 1):
-                self.status = 'morto'
+                self.vivo = False
