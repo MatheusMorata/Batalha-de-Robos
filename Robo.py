@@ -50,9 +50,6 @@ class Robo:
     def sense_act(self):
         while self.vivo == True:
             self.mover()
-            print('=================')
-            print(f'Robô {self.id}')
-            print(f'Coordendas ({self.x},{self.y})')
             sleep(1)
 
     # Reduz a energia numa unidade e mata o robô com menos de um de energia
