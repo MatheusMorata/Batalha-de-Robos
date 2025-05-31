@@ -1,4 +1,5 @@
-from multiprocessing import Array, Manager, Process
+from multiprocessing import Array, Manager
+from threading import Thread
 from Jogo import *
 from time import sleep
 
@@ -19,17 +20,17 @@ if __name__ == '__main__':
             Apresentar(tabuleiro, robos, baterias, linhas, colunas) 
 
             # Cria processos para cada robô
-            processos = []
+            threads = []
             for r in robos:
-                p = Process(target=r.sense_act())
-                processos.append(p)
-                p.start()
+                t = Thread(target=r.sense_act())
+                threads.append(t)
+                t.start()
         
             Apresentar(tabuleiro, robos, baterias, linhas, colunas)
 
             # Finaliza todos os processos
-            for p in processos:
-                p.terminate()
+            for t in threads:
+                t.terminate()
 
     except Exception as e:
         print(e)
