@@ -1,7 +1,6 @@
 import random
 from Robo import Robo
 from Bateria import Bateria
-from threading import Lock
 
 def CriarRobos(numRobos):
     robos = []

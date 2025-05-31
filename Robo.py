@@ -18,7 +18,6 @@ class Robo:
             self.x = X
             self.y = Y
             self.status = 'vivo'
-            self.lock = None  # Mutex compartilhado
 
     # Poder atualiza dinamicamente
     @property
@@ -26,11 +25,9 @@ class Robo:
         return 2 * self.forca + self.energia
     
     def sense_act(self):
-
         while self.status == 'vivo':
-            print(f'Executando {self.id}')
-            with self.lock:
-                self.housekeeping()
+            print(f'{self.id} Executando...')
+            self.housekeeping()
             sleep(1)
 
     def housekeeping(self):

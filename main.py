@@ -10,7 +10,6 @@ if __name__ == '__main__':
         colunas = 20  
         numRobos = 4 
         numBaterias = 10
-        lock = Lock()
         tabuleiro = Array('i', linhas * colunas)  # Memória compartilhada
 
         with Manager() as manager:
@@ -20,20 +19,6 @@ if __name__ == '__main__':
 
             Apresentar(tabuleiro, robos, baterias, linhas, colunas) 
 
-            # Cria threads para cada robô
-            threads = []
-            for r in robos:
-                r.lock = lock
-                t = Thread(target=r.sense_act())
-                threads.append(t)
-                t.start()
-                sleep(1)
-        
-            Apresentar(tabuleiro, robos, baterias, linhas, colunas)
-
-            # Finaliza todos os processos
-            for t in threads:
-                t.terminate()
 
     except Exception as e:
         print(e)
