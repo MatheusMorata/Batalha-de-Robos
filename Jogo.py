@@ -37,7 +37,7 @@ def Apresentar(tabuleiro, robos, baterias, colunas, linhas):
 
     # Adiciona robôs no tabuleiro
     for robo in robos:
-        if robo.status == 'vivo':
+        if robo.vivo == True:
             if 0 <= robo.x < colunas and 0 <= robo.y < linhas:
                 index = robo.y * colunas + robo.x
                 tabuleiro[index] = ord(robo.id)
