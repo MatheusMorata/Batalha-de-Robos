@@ -1,5 +1,5 @@
 from multiprocessing import Array, Manager
-from threading import Thread
+from threading import *
 from Jogo import *
 from time import sleep
 
@@ -10,6 +10,7 @@ if __name__ == '__main__':
         colunas = 20  
         numRobos = 4 
         numBaterias = 10
+        lock = Lock()
         tabuleiro = Array('i', linhas * colunas)  # Memória compartilhada
 
         with Manager() as manager:
@@ -19,12 +20,14 @@ if __name__ == '__main__':
 
             Apresentar(tabuleiro, robos, baterias, linhas, colunas) 
 
-            # Cria processos para cada robô
+            # Cria threads para cada robô
             threads = []
             for r in robos:
+                r.lock = lock
                 t = Thread(target=r.sense_act())
                 threads.append(t)
                 t.start()
+                sleep(1)
         
             Apresentar(tabuleiro, robos, baterias, linhas, colunas)
 

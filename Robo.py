@@ -18,6 +18,7 @@ class Robo:
             self.x = X
             self.y = Y
             self.status = 'vivo'
+            self.lock = None  # Mutex compartilhado
 
     # Poder atualiza dinamicamente
     @property
@@ -28,7 +29,8 @@ class Robo:
 
         while self.status == 'vivo':
             print(f'Executando {self.id}')
-            self.housekeeping()
+            with self.lock:
+                self.housekeeping()
             sleep(1)
 
     def housekeeping(self):
