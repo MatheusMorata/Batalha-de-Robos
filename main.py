@@ -36,7 +36,7 @@ if __name__ == '__main__':
                 vivos = [r for r in robos if r.status == 'vivo']
                 if len(vivos) <= 1:
                     break
-                
+
             # Finaliza todos os processos
             for p in processos:
                 p.terminate()
