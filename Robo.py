@@ -43,4 +43,9 @@ class Robo:
     
     def housekeeping(self):
         self.energia -= 1
-        print(f'{self.id} Energia total: {self.energia}')
+        print('========================================')
+        print(f'Robô {self.id}')
+        print(f'Energia total: {self.energia}')
+        print(f'X: {self.x}')
+        print(f'Y: {self.y}')
+        print('========================================')
