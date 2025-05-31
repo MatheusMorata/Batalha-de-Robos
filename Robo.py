@@ -26,31 +26,9 @@ class Robo:
         return 2 * self.forca + self.energia
     
     def sense_act(self, tabuleiro, linhas, colunas):
-        while self.energia > 0:
-            direcao = random.choice(['cima', 'baixo', 'esquerda', 'direita'])
-
-            # Apaga posição anterior
-            pos_ant = self.y * colunas + self.x
-            tabuleiro[pos_ant] = 0  # ou ID vazio
-
-            if direcao == 'cima' and self.y > 0:
-                self.y -= 1
-            elif direcao == 'baixo' and self.y < linhas - 1:
-                self.y += 1
-            elif direcao == 'esquerda' and self.x > 0:
-                self.x -= 1
-            elif direcao == 'direita' and self.x < colunas - 1:
-                self.x += 1
-
-            # Marca nova posição no tabuleiro
-            pos_nova = self.y * colunas + self.x
-            tabuleiro[pos_nova] = self.id
-
+        while self.status == 'vivo':
             self.housekeeping()
             sleep(1)
 
-    
     def housekeeping(self):
         self.energia -= 1
-
-
