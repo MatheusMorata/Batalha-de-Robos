@@ -21,7 +21,7 @@ if __name__ == '__main__':
             for i in range(0,4):
 
                 # Atributos do robô
-                id = chr(ord('a') + i)     
+                id = chr(ord('A') + i)     
                 forca = random.randint(1,10)   
                 energia = random.randint(10,100) 
                 velocidade = random.randint(1,5)
