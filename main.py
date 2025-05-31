@@ -1,4 +1,3 @@
-# main.py (corrigido)
 from multiprocessing import Array, Manager, Process
 import Jogo
 from time import sleep
