@@ -33,12 +33,11 @@ class Robo:
 
     def sense_act(self):
         while self.vivo == True:
-            print(f'{self.id} Executando...')
             sleep(1)
 
+    # Reduz a energia numa unidade e mata o robô com menos de um de energia
     def housekeeping(self):
         while self.vivo == True:
             self.energia -= 1
-            print(f'{self.id} Energia: {self.energia}')
             if(self.energia < 1):
                 self.vivo = False

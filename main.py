@@ -1,7 +1,7 @@
 from multiprocessing import *
 from Jogo import *
-from time import sleep
 
+# Debbugando
 if __name__ == '__main__':
     try:
         # Variáveis 
