@@ -30,11 +30,9 @@ class Robo:
         t2 = Thread(target=self.housekeeping)
         t1.start()
         t2.start()
-        t1.join()
-        t2.join()
 
     def sense_act(self):
-        while self.status == 'vivo':
+        while self.vivo == True:
             print(f'{self.id} Executando...')
             sleep(1)
 
