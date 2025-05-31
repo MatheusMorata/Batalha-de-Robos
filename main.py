@@ -1,5 +1,5 @@
 from multiprocessing import Array, Manager, Process
-import Jogo
+from Jogo import *
 from time import sleep
 
 if __name__ == '__main__':
@@ -13,10 +13,10 @@ if __name__ == '__main__':
 
         with Manager() as manager:
             # Memória compartilhada
-            robos = manager.list(Jogo.CriarRobos(numRobos))
-            baterias = manager.list(Jogo.CriarBaterias(numBaterias))
+            robos = manager.list(CriarRobos(numRobos))
+            baterias = manager.list(CriarBaterias(numBaterias))
 
-            Jogo.Apresentar(tabuleiro, robos, baterias, linhas, colunas)
+            Apresentar(tabuleiro, robos, baterias, linhas, colunas)
 
             # Cria processos para cada robô
             processos = []
