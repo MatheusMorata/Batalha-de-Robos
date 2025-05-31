@@ -1,5 +1,4 @@
 from time import sleep
-import random
 
 class Robo:
 
@@ -25,10 +24,14 @@ class Robo:
     def poder(self):
         return 2 * self.forca + self.energia
     
-    def sense_act(self, tabuleiro, linhas, colunas):
+    def sense_act(self):
+
         while self.status == 'vivo':
+            print(f'Executando {self.id}')
             self.housekeeping()
             sleep(1)
 
     def housekeeping(self):
         self.energia -= 1
+        if(self.energia < 1):
+            self.status = 'morto'
