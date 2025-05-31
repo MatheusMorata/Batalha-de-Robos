@@ -1,4 +1,5 @@
 from time import sleep
+from threading import Thread
 
 class Robo:
 
@@ -23,14 +24,23 @@ class Robo:
     @property
     def poder(self):
         return 2 * self.forca + self.energia
-    
+
+    def iniciar_threads(self):
+        t1 = Thread(target=self.sense_act)
+        t2 = Thread(target=self.housekeeping)
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
+
     def sense_act(self):
         while self.status == 'vivo':
             print(f'{self.id} Executando...')
-            self.housekeeping()
             sleep(1)
 
     def housekeeping(self):
-        self.energia -= 1
-        if(self.energia < 1):
-            self.status = 'morto'
+        while self.status == 'vivo':
+            self.energia -= 1
+            print(f'{self.id} Energia: {self.energia}')
+            if(self.energia < 1):
+                self.status = 'morto'
