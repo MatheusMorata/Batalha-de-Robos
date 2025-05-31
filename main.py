@@ -20,9 +20,7 @@ if __name__ == '__main__':
             robos = manager.list(Jogo.CriarRobos(numRobos))
             baterias = manager.list(Jogo.CriarBaterias(numBaterias)) 
 
-            # Cria e exibe o tabuleiro inicial
-            tab = Tabuleiro(tabuleiro, robos, baterias, colunas, linhas)
-            tab.Apresentar()
+            Jogo.Apresentar(tabuleiro, robos, baterias, colunas, linhas)
 
             # Cria processos para cada robô
             processos = []
@@ -36,6 +34,7 @@ if __name__ == '__main__':
                 vivos = [r for r in robos if r.status == 'vivo']
                 if len(vivos) <= 1:
                     break
+                Jogo.Apresentar(tabuleiro, robos, baterias, colunas, linhas)
 
             # Finaliza todos os processos
             for p in processos:

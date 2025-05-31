@@ -31,3 +31,24 @@ def CriarBaterias(numBaterias):
         baterias.append(Bateria(posicao_x, posicao_y)) # Criando bateria
 
     return baterias
+
+def Apresentar(tabuleiro, linhas, colunas, robos, baterias):
+    # Cria uma matriz para visualização correta (linhas x colunas)
+    matriz = [[' ' for _ in range(colunas)] for _ in range(linhas)]
+
+    # Adiciona robôs na matriz
+    for robo in robos:
+        if robo.status == 'vivo':
+            if 0 <= robo.y < linhas and 0 <= robo.x < colunas:
+                matriz[robo.y][robo.x] = str(robo.id)[0]
+
+    # Adiciona baterias na matriz
+    for bateria in baterias:
+        if 0 <= bateria.y < linhas and 0 <= bateria.x < colunas:
+            matriz[bateria.y][bateria.x] = str(bateria.id)[0]
+
+    # Imprime o tabuleiro
+    print('+' + '-' * colunas + '+')
+    for linha in matriz:
+        print('|' + ''.join(linha) + '|')
+    print('+' + '-' * colunas + '+')
