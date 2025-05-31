@@ -40,6 +40,12 @@ class Robo:
         # Atualiza posição considerando a velocidade
         self.x += dx * self.velocidade
         self.y += dy * self.velocidade
+        
+        # Evita que os limites do tabuleiro sejam excedidos
+        if(self.x > 39):
+            self.x = 39
+        elif(self.y > 19):
+            self.y = 19
 
     def sense_act(self):
         while self.vivo == True:
