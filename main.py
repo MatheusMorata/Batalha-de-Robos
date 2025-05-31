@@ -1,26 +1,23 @@
-from Tabuleiro import Tabuleiro
+# main.py (corrigido)
 from multiprocessing import Array, Manager, Process
 import Jogo
 from time import sleep
 
-# Debuggando
 if __name__ == '__main__':
-
     try:
         # Variáveis 
-        linhas = 40
-        colunas = 20
+        linhas = 40  
+        colunas = 20  
         numRobos = 4 
         numBaterias = 10
-        tabuleiro = Array('i',linhas * colunas) # Memória compartilhada para o tabuleiro
-        
+        tabuleiro = Array('i', linhas * colunas)  # Memória compartilhada
+
         with Manager() as manager:
-
-            # Memória compartilhada 
+            # Memória compartilhada
             robos = manager.list(Jogo.CriarRobos(numRobos))
-            baterias = manager.list(Jogo.CriarBaterias(numBaterias)) 
+            baterias = manager.list(Jogo.CriarBaterias(numBaterias))
 
-            Jogo.Apresentar(tabuleiro, robos, baterias, colunas, linhas)
+            Jogo.Apresentar(tabuleiro, robos, baterias, linhas, colunas)
 
             # Cria processos para cada robô
             processos = []
@@ -29,12 +26,14 @@ if __name__ == '__main__':
                 processos.append(p)
                 p.start()
             
-            # Loop principal - verifica a quantidade de robôs vivos
+            # Loop principal
             while True:
                 vivos = [r for r in robos if r.status == 'vivo']
                 if len(vivos) <= 1:
                     break
-                Jogo.Apresentar(tabuleiro, robos, baterias, colunas, linhas)
+                sleep(1)  
+                print(robos[0].x)
+                #Jogo.Apresentar(tabuleiro, robos, baterias, linhas, colunas)
 
             # Finaliza todos os processos
             for p in processos:

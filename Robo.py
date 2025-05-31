@@ -43,6 +43,10 @@ class Robo:
     
     def housekeeping(self):
         self.energia -= 1
+
+
+
+    def status_robo(self):
         print('========================================')
         print(f'Robô {self.id}')
         print(f'Energia total: {self.energia}')
