@@ -24,8 +24,6 @@ if __name__ == '__main__':
                 p = Process(target=robo.iniciar_threads)
                 p.start()
                 processos.append(p)
-                sleep(1)
-                p.join()
 
     except Exception as e:
         print(e)
