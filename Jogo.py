@@ -39,8 +39,6 @@ def atualizar_tabuleiro(tabuleiro, robos, baterias, colunas, linhas):
 
 
 def Apresentar(tabuleiro, robos, baterias, colunas, linhas):
-    # Limpa o terminal
-    os.system('cls' if os.name == 'nt' else 'clear')
 
     # Limpa o tabuleiro
     for i in range(linhas * colunas):
