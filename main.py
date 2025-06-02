@@ -27,6 +27,5 @@ if __name__ == '__main__':
 
             Apresentar(tabuleiro, robos, baterias, colunas, linhas)
 
-
     except Exception as e:
         print(e)
