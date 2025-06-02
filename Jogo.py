@@ -2,7 +2,6 @@ import random
 import os
 from Robo import Robo
 from Bateria import Bateria
-from time import sleep
 
 def CriarRobos(numRobos):
     robos = []
@@ -32,13 +31,8 @@ def CriarBaterias(numBaterias):
 
     return baterias
 
-def atualizar_tabuleiro(tabuleiro, robos, baterias, colunas, linhas):
-    while True:
-        Apresentar(tabuleiro, robos, baterias, colunas, linhas)
-        sleep(1)
 
-
-def Apresentar(tabuleiro, robos, baterias, colunas, linhas):
+def Apresentar(tabuleiro, robos, baterias, linhas, colunas):
 
     # Limpa o tabuleiro
     for i in range(linhas * colunas):

@@ -16,17 +16,16 @@ if __name__ == '__main__':
             # Memória compartilhada
             robos = manager.list(CriarRobos(numRobos))
             baterias = manager.list(CriarBaterias(numBaterias))
-
-            # Processo de apresentação dinâmica
-            apresentador = Process(target=atualizar_tabuleiro, args=(tabuleiro, robos, baterias, colunas, linhas))
-            apresentador.start()
-            processos.append(apresentador)
+            
+            #Apresentar(tabuleiro, robos, baterias, colunas, linhas)
 
             # Cria um processo para cada robô 
             for robo in robos:
                 p = Process(target=robo.iniciar_threads)
                 p.start()
                 processos.append(p)
+
+            #Apresentar(tabuleiro, robos, baterias, colunas, linhas)
 
 
     except Exception as e:
