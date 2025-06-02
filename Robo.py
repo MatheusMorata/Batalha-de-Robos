@@ -54,7 +54,6 @@ class Robo:
     # Reduz a energia numa unidade e mata o robô com menos de um de energia
     def housekeeping(self):
         while self.vivo == True:
-            print(f'Robô {self.id} tem {self.energia} de energia.')
             self.energia -= 1
             if(self.energia < 1):
                 self.vivo = False

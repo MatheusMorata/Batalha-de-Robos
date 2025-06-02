@@ -17,7 +17,7 @@ if __name__ == '__main__':
             robos = manager.list(CriarRobos(numRobos))
             baterias = manager.list(CriarBaterias(numBaterias))
             
-            #Apresentar(tabuleiro, robos, baterias, colunas, linhas)
+            Apresentar(tabuleiro, robos, baterias, colunas, linhas)
 
             # Cria um processo para cada robô 
             for robo in robos:
@@ -25,7 +25,7 @@ if __name__ == '__main__':
                 p.start()
                 processos.append(p)
 
-            #Apresentar(tabuleiro, robos, baterias, colunas, linhas)
+            Apresentar(tabuleiro, robos, baterias, colunas, linhas)
 
 
     except Exception as e:
