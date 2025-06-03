@@ -1,6 +1,6 @@
 import random
-from time import sleep
 from threading import Thread
+from multiprocessing import Value
 
 class Robo:
 
@@ -14,12 +14,12 @@ class Robo:
             raise Exception('Velocidade deve está no intervalo de 1 a 5.')
         else:
             self.id = ID
-            self.forca = F
-            self.energia = E
-            self.velocidade = V
-            self.x = X
-            self.y = Y
-            self.vivo = True
+            self.forca = Value('i',F)
+            self.energia = Value('i',E)
+            self.velocidade = Value('i',V)
+            self.x = Value('i',X)
+            self.y = Value('i',Y)
+            self.vivo = Value('i',1)
 
     # Poder atualiza dinamicamente
     @property
@@ -48,12 +48,12 @@ class Robo:
             self.y = 19
 
     def sense_act(self):
-        while self.vivo == True:
+        while self.vivo == 1:
             self.mover()
 
     # Reduz a energia numa unidade e mata o robô com menos de um de energia
     def housekeeping(self):
-        while self.vivo == True:
+        while self.vivo == 1:
             self.energia -= 1
             if(self.energia < 1):
-                self.vivo = False
+                self.vivo = 0
