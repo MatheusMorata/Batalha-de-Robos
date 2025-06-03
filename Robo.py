@@ -35,8 +35,6 @@ class Robo:
         t2 = Thread(target=self.housekeeping)
         t1.start()
         t2.start()
-        t1.join()
-        t2.join()
 
     # Movimento aleatório no tabuleiro, respeitando os limites
     def mover(self):
