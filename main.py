@@ -14,8 +14,8 @@ if __name__ == '__main__':
 
         with Manager() as manager:
             # Memória compartilhada
-            robos = manager.list(CriarRobos(numRobos))
-            baterias = manager.list(CriarBaterias(numBaterias))
+            robos = CriarRobos(numRobos)
+            baterias = CriarBaterias(numBaterias)
             
             Apresentar(tabuleiro, robos, baterias, colunas, linhas)
 
