@@ -1,59 +1,66 @@
 import random
 from threading import Thread
 from multiprocessing import Value
+import time
 
 class Robo:
 
     # Construtor
     def __init__(self, ID, F, E, V, X, Y):
-        if(F < 1 or F > 10):
-            raise Exception('Força deve está no intervalo de 1 a 10.')
-        elif(E < 10 or E > 100):
-            raise Exception('Energia deve está no intervalo de 10 a 100.')
-        elif(V < 1 or V > 5):
-            raise Exception('Velocidade deve está no intervalo de 1 a 5.')
-        else:
-            self.id = ID
-            self.forca = Value('i',F)
-            self.energia = Value('i',E)
-            self.velocidade = Value('i',V)
-            self.x = Value('i',X)
-            self.y = Value('i',Y)
-            self.vivo = Value('i',1)
+        # Validações
+        if not (1 <= F <= 10):
+            raise Exception('Força deve estar no intervalo de 1 a 10.')
+        if not (10 <= E <= 100):
+            raise Exception('Energia deve estar no intervalo de 10 a 100.')
+        if not (1 <= V <= 5):
+            raise Exception('Velocidade deve estar no intervalo de 1 a 5.')
 
-    # Poder atualiza dinamicamente
+        # Atributos (usando memória compartilhada)
+        self.id = ID
+        self.forca = Value('i', F)
+        self.energia = Value('i', E)
+        self.velocidade = Value('i', V)
+        self.x = Value('i', X)
+        self.y = Value('i', Y)
+        self.vivo = Value('i', 1)
+
+    # Poder é calculado dinamicamente com base na força e energia
     @property
     def poder(self):
-        return 2 * self.forca + self.energia
+        return 2 * self.forca.value + self.energia.value
 
+    # Inicia as duas threads do robô
     def iniciar_threads(self):
         t1 = Thread(target=self.sense_act)
         t2 = Thread(target=self.housekeeping)
         t1.start()
         t2.start()
+        t1.join()
+        t2.join()
 
+    # Movimento aleatório no tabuleiro, respeitando os limites
     def mover(self):
-        # Geração de direção aleatória: -1, 0 ou 1 para x e y
         dx = random.randint(-1, 1)
         dy = random.randint(-1, 1)
 
-        # Atualiza posição considerando a velocidade
-        self.x += dx * self.velocidade
-        self.y += dy * self.velocidade
-        
-        # Evita que os limites do tabuleiro sejam excedidos
-        if(self.x > 39):
-            self.x = 39
-        elif(self.y > 19):
-            self.y = 19
+        # Protege o acesso às variáveis compartilhadas com locks
+        with self.x.get_lock(), self.y.get_lock(), self.velocidade.get_lock():
+            self.x.value += dx * self.velocidade.value
+            self.y.value += dy * self.velocidade.value
 
+            # Limita dentro dos limites do tabuleiro
+            self.x.value = max(0, min(39, self.x.value))
+            self.y.value = max(0, min(19, self.y.value))
+
+    # Thread responsável pelo comportamento (ação)
     def sense_act(self):
-        while self.vivo == 1:
+        while self.vivo.value == 1:
             self.mover()
 
-    # Reduz a energia numa unidade e mata o robô com menos de um de energia
+    # Thread responsável por reduzir energia e "matar" o robô se necessário
     def housekeeping(self):
-        while self.vivo == 1:
-            self.energia -= 1
-            if(self.energia < 1):
-                self.vivo = 0
+        while self.vivo.value == 1:
+            with self.energia.get_lock():
+                self.energia.value -= 1
+                if self.energia.value < 1:
+                    self.vivo.value = 0
