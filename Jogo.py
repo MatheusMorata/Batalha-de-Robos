@@ -1,5 +1,4 @@
 import random
-import os
 from Robo import Robo
 from Bateria import Bateria
 
@@ -41,15 +40,15 @@ def Apresentar(tabuleiro, robos, baterias, linhas, colunas):
     # Adiciona robôs no tabuleiro
     for robo in robos:
         if robo.vivo:
-            if 0 <= robo.x < colunas and 0 <= robo.y < linhas:
-                index = robo.y * colunas + robo.x
+            if 0 <= robo.x.value < colunas and 0 <= robo.y.value < linhas:
+                index = robo.y.value * colunas + robo.x.value
                 tabuleiro[index] = ord(robo.id)
 
     # Adiciona baterias no tabuleiro
     for bateria in baterias:
-        if 0 <= bateria.x < colunas and 0 <= bateria.y < linhas:
-            index = bateria.y * colunas + bateria.x
-            tabuleiro[index] = ord(bateria.id)
+        if 0 <= bateria.x.value < colunas and 0 <= bateria.y.value < linhas:
+            index = bateria.y.value * colunas + bateria.x.value
+            tabuleiro[index] = ord(bateria.id.value)
 
     # Imprime o tabuleiro
     print('+' + '-' * colunas + '+')
