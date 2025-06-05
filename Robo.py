@@ -61,6 +61,7 @@ class Robo:
             index = self.y.value * 20 + self.x.value
             self.tabuleiro[index] = self.id
             # IMPLEMENTADO APRESENTAR AQUI
+            # Apresentação
             sleep(0.1)
 
     # Thread responsável por "matar" o robô se acabar a energia
