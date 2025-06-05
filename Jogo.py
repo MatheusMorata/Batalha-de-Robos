@@ -30,7 +30,7 @@ def CriarBaterias(numBaterias):
 
     return baterias
 
-
+# NECESSÁRIO REFATORAÇÃO
 def Apresentar(tabuleiro, robos, baterias, linhas, colunas):
 
     # Limpa o tabuleiro

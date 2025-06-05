@@ -1,7 +1,9 @@
 import random
+from Jogo import Apresentar
 from threading import Thread
-from multiprocessing import Value
-import time
+from multiprocessing import Value, Array
+from time import sleep
+from ctypes import c_wchar
 
 class Robo:
 
@@ -23,6 +25,7 @@ class Robo:
         self.x = Value('i', X)
         self.y = Value('i', Y)
         self.vivo = Value('i', 1)
+        self.tabuleiro = Array(c_wchar, 800)
 
     # Poder é calculado dinamicamente com base na força e energia
     @property
@@ -55,6 +58,10 @@ class Robo:
         while self.vivo.value == 1:
             self.mover()
             self.energia.value -= 1
+            index = self.y.value * 20 + self.x.value
+            self.tabuleiro[index] = self.id
+            # IMPLEMENTADO APRESENTAR AQUI
+            sleep(0.1)
 
     # Thread responsável por "matar" o robô se acabar a energia
     def housekeeping(self):

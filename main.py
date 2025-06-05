@@ -5,27 +5,19 @@ from Jogo import *
 if __name__ == '__main__':
     try:
         # Variáveis 
-        linhas = 40  
-        colunas = 20  
-        numRobos = 4 
+        numRobos = 1 
         numBaterias = 10
         processos = []
-        tabuleiro = Array('i', linhas * colunas)  # Memória compartilhada
 
-        with Manager() as manager:
-            # Memória compartilhada
-            robos = CriarRobos(numRobos)
-            baterias = CriarBaterias(numBaterias)
-            
-            Apresentar(tabuleiro, robos, baterias, colunas, linhas)
+        robos = CriarRobos(numRobos)
+        baterias = CriarBaterias(numBaterias)
 
-            # Cria um processo para cada robô 
-            for robo in robos:
-                p = Process(target=robo.iniciar_threads)
-                p.start()
-                processos.append(p)
-
-            Apresentar(tabuleiro, robos, baterias, colunas, linhas)
+        # Cria um processo para cada robô 
+        for robo in robos:
+            p = Process(target=robo.iniciar_threads)
+            p.start()
+            processos.append(p)
+  
 
     except Exception as e:
         print(e)
