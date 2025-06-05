@@ -54,11 +54,11 @@ class Robo:
     def sense_act(self):
         while self.vivo.value == 1:
             self.mover()
+            self.energia.value -= 1
 
-    # Thread responsável por reduzir energia e "matar" o robô se necessário
+    # Thread responsável por "matar" o robô se acabar a energia
     def housekeeping(self):
         while self.vivo.value == 1:
             with self.energia.get_lock():
-                self.energia.value -= 1
                 if self.energia.value < 1:
                     self.vivo.value = 0
