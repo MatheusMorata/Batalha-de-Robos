@@ -2,7 +2,6 @@ import random
 import Jogo
 from threading import Thread
 from multiprocessing import Value
-from time import sleep
 from os import system
 
 class Robo:
@@ -77,7 +76,7 @@ class Robo:
             # Atualiza a exibição (com lock)
             with lock_tabuleiro: 
                 Jogo.Apresentar(tabuleiro)
-            
+
             system('cls')
 
     # Thread responsável por "matar" o robô se acabar a energia
