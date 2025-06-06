@@ -5,7 +5,7 @@ from Jogo import *
 if __name__ == '__main__':
     try:
         # Variáveis 
-        numRobos = 4 
+        numRobos = 1 
         numBaterias = 10
         processos = []
 
@@ -19,6 +19,5 @@ if __name__ == '__main__':
             p.start()
             processos.append(p)
   
-
     except Exception as e:
         print(e)

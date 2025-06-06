@@ -30,5 +30,29 @@ def CriarBaterias(numBaterias):
 
     return baterias
 
-def contar(tabuleiro):
-    return sum(1 for c in tabuleiro if c != ' ')
+def Apresentar(tabuleiro):
+    colunas = 40
+    linhas = 20
+
+    for linha in range(linhas):
+        for coluna in range(colunas):
+            i = linha * colunas + coluna
+
+            # Cantos
+            if (linha == 0 or linha == linhas - 1) and (coluna == 0 or coluna == colunas - 1):
+                tabuleiro[i] = '+'
+            # Bordas horizontais
+            elif linha == 0 or linha == linhas - 1:
+                tabuleiro[i] = '-'
+            # Bordas verticais
+            elif coluna == 0 or coluna == colunas - 1:
+                tabuleiro[i] = '|'
+            # Interior - só substitui se for um espaço (preserva conteúdo existente)
+            elif tabuleiro[i] == ' ':
+                tabuleiro[i] = ' '
+
+    # Exibir o tabuleiro
+    for linha in range(linhas):
+        inicio = linha * colunas
+        fim = inicio + colunas
+        print(''.join(tabuleiro[inicio:fim]))

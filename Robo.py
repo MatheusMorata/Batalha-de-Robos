@@ -3,6 +3,7 @@ import Jogo
 from threading import Thread
 from multiprocessing import Value
 from time import sleep
+from os import system
 
 class Robo:
 
@@ -53,12 +54,29 @@ class Robo:
 
     # Thread responsável pelo comportamento (ação)
     def sense_act(self, tabuleiro):
+        # Armazena a posição anterior (inicialmente None)
+        ultimo_x, ultimo_y = None, None
+        
         while self.vivo.value == 1:
+            # Limpa a posição anterior (se existir)
+            if ultimo_x is not None and ultimo_y is not None:
+                indice_anterior = ultimo_y * 20 + ultimo_x
+                tabuleiro[indice_anterior] = ' '  # Apaga o rastro anterior
+            
+            # Atualiza movimento
             self.mover()
             self.energia.value -= 1
-            index = self.y.value * 20 + self.x.value
-            tabuleiro[index] = self.id
-            # IMPLEMENTADO APRESENTAR AQUI
+            
+            # Armazena a nova posição
+            indice_atual = self.y.value * 20 + self.x.value
+            tabuleiro[indice_atual] = self.id
+            
+            # Guarda a posição atual para limpar na próxima iteração
+            ultimo_x, ultimo_y = self.x.value, self.y.value
+            
+            # Atualiza a exibição
+            Jogo.Apresentar(tabuleiro)
+            system('cls')  # Limpa a tela (Windows)
             sleep(1)
 
     # Thread responsável por "matar" o robô se acabar a energia
