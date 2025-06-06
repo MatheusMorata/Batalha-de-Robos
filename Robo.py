@@ -1,9 +1,8 @@
 import random
-from Jogo import Apresentar
+import Jogo
 from threading import Thread
-from multiprocessing import Value, Array
+from multiprocessing import Value
 from time import sleep
-from ctypes import c_wchar
 
 class Robo:
 
@@ -25,7 +24,6 @@ class Robo:
         self.x = Value('i', X)
         self.y = Value('i', Y)
         self.vivo = Value('i', 1)
-        self.tabuleiro = Array(c_wchar, 800)
 
     # Poder é calculado dinamicamente com base na força e energia
     @property
@@ -33,8 +31,8 @@ class Robo:
         return 2 * self.forca.value + self.energia.value
 
     # Inicia as duas threads do robô
-    def iniciar_threads(self):
-        t1 = Thread(target=self.sense_act)
+    def iniciar_threads(self, tabuleiro):
+        t1 = Thread(target=self.sense_act, args=(tabuleiro,))
         t2 = Thread(target=self.housekeeping)
         t1.start()
         t2.start()
@@ -54,15 +52,14 @@ class Robo:
             self.y.value = max(0, min(19, self.y.value))
 
     # Thread responsável pelo comportamento (ação)
-    def sense_act(self):
+    def sense_act(self, tabuleiro):
         while self.vivo.value == 1:
             self.mover()
             self.energia.value -= 1
             index = self.y.value * 20 + self.x.value
-            self.tabuleiro[index] = self.id
+            tabuleiro[index] = self.id
             # IMPLEMENTADO APRESENTAR AQUI
-            # Apresentação
-            sleep(0.1)
+            sleep(1)
 
     # Thread responsável por "matar" o robô se acabar a energia
     def housekeeping(self):

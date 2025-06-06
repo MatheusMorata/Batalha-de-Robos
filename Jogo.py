@@ -30,36 +30,5 @@ def CriarBaterias(numBaterias):
 
     return baterias
 
-# NECESSÁRIO REFATORAÇÃO
-def Apresentar(tabuleiro, robos, baterias, linhas, colunas):
-
-    # Limpa o tabuleiro
-    for i in range(linhas * colunas):
-        tabuleiro[i] = 0
-
-    # Adiciona robôs no tabuleiro
-    for robo in robos:
-        if robo.vivo:
-            if 0 <= robo.x.value < colunas and 0 <= robo.y.value < linhas:
-                index = robo.y.value * colunas + robo.x.value
-                tabuleiro[index] = ord(robo.id)
-
-    # Adiciona baterias no tabuleiro
-    for bateria in baterias:
-        if 0 <= bateria.x.value < colunas and 0 <= bateria.y.value < linhas:
-            index = bateria.y.value * colunas + bateria.x.value
-            tabuleiro[index] = ord(bateria.id.value)
-
-    # Imprime o tabuleiro
-    print('+' + '-' * colunas + '+')
-    for y in range(linhas):
-        linha = '|'
-        for x in range(colunas):
-            index = y * colunas + x
-            if tabuleiro[index] == 0:
-                linha += ' '
-            else:
-                linha += chr(tabuleiro[index])
-        linha += '|'
-        print(linha)
-    print('+' + '-' * colunas + '+')
+def contar(tabuleiro):
+    return sum(1 for c in tabuleiro if c != ' ')
