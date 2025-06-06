@@ -32,8 +32,8 @@ class Robo:
         return 2 * self.forca.value + self.energia.value
 
     # Inicia as duas threads do robô
-    def iniciar_threads(self, tabuleiro):
-        t1 = Thread(target=self.sense_act, args=(tabuleiro,))
+    def iniciar_threads(self, tabuleiro, lock_tabuleiro):
+        t1 = Thread(target=self.sense_act, args=(tabuleiro, lock_tabuleiro))
         t2 = Thread(target=self.housekeeping)
         t1.start()
         t2.start()
@@ -53,31 +53,32 @@ class Robo:
             self.y.value = max(0, min(19, self.y.value))
 
     # Thread responsável pelo comportamento (ação)
-    def sense_act(self, tabuleiro):
-        # Armazena a posição anterior (inicialmente None)
+    def sense_act(self, tabuleiro, lock_tabuleiro):
         ultimo_x, ultimo_y = None, None
         
         while self.vivo.value == 1:
             # Limpa a posição anterior (se existir)
             if ultimo_x is not None and ultimo_y is not None:
-                indice_anterior = ultimo_y * 20 + ultimo_x
-                tabuleiro[indice_anterior] = ' '  # Apaga o rastro anterior
+                with lock_tabuleiro: 
+                    indice_anterior = ultimo_y * 20 + ultimo_x
+                    tabuleiro[indice_anterior] = ' '
             
             # Atualiza movimento
             self.mover()
             self.energia.value -= 1
             
-            # Armazena a nova posição
-            indice_atual = self.y.value * 20 + self.x.value
-            tabuleiro[indice_atual] = self.id
+            # Armazena a nova posição (com lock)
+            with lock_tabuleiro:  
+                indice_atual = self.y.value * 20 + self.x.value
+                tabuleiro[indice_atual] = self.id
             
-            # Guarda a posição atual para limpar na próxima iteração
             ultimo_x, ultimo_y = self.x.value, self.y.value
             
-            # Atualiza a exibição
-            Jogo.Apresentar(tabuleiro)
-            system('cls')  # Limpa a tela (Windows)
-            sleep(1)
+            # Atualiza a exibição (com lock)
+            with lock_tabuleiro: 
+                Jogo.Apresentar(tabuleiro)
+            
+            system('cls')
 
     # Thread responsável por "matar" o robô se acabar a energia
     def housekeeping(self):

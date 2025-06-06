@@ -30,9 +30,16 @@ def CriarBaterias(numBaterias):
 
     return baterias
 
-def Apresentar(tabuleiro):
+def Apresentar(tabuleiro, lock_tabuleiro=None):
     colunas = 40
     linhas = 20
+
+    # Se um lock foi fornecido, usa ele para leitura segura
+    if lock_tabuleiro:
+        with lock_tabuleiro:  # Bloqueia antes de ler o tabuleiro
+            tabuleiro_copia = list(tabuleiro[:])  # Faz uma cópia local para evitar travamentos
+    else:
+        tabuleiro_copia = list(tabuleiro[:])  # Se não há lock, lê diretamente
 
     for linha in range(linhas):
         for coluna in range(colunas):
@@ -40,19 +47,19 @@ def Apresentar(tabuleiro):
 
             # Cantos
             if (linha == 0 or linha == linhas - 1) and (coluna == 0 or coluna == colunas - 1):
-                tabuleiro[i] = '+'
+                tabuleiro_copia[i] = '+'
             # Bordas horizontais
             elif linha == 0 or linha == linhas - 1:
-                tabuleiro[i] = '-'
+                tabuleiro_copia[i] = '-'
             # Bordas verticais
             elif coluna == 0 or coluna == colunas - 1:
-                tabuleiro[i] = '|'
-            # Interior - só substitui se for um espaço (preserva conteúdo existente)
-            elif tabuleiro[i] == ' ':
-                tabuleiro[i] = ' '
+                tabuleiro_copia[i] = '|'
+            # Interior (preserva conteúdo existente)
+            elif tabuleiro_copia[i] == ' ':
+                tabuleiro_copia[i] = ' '
 
-    # Exibir o tabuleiro
+    # Exibe o tabuleiro
     for linha in range(linhas):
         inicio = linha * colunas
         fim = inicio + colunas
-        print(''.join(tabuleiro[inicio:fim]))
+        print(''.join(tabuleiro_copia[inicio:fim]))
