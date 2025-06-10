@@ -2,7 +2,7 @@ import random
 import Jogo
 from threading import Thread
 from multiprocessing import Value
-from os import system
+from time import sleep
 
 class Robo:
 
@@ -23,7 +23,7 @@ class Robo:
         self.velocidade = Value('i', V)
         self.x = Value('i', X)
         self.y = Value('i', Y)
-        self.vivo = Value('i', 1)
+        self.status = Value('u', 'V') # (V -> Vivo, M -> Morto, C -> Carregando, B -> Batalhando)
 
     # Poder é calculado dinamicamente com base na força e energia
     @property
@@ -35,53 +35,29 @@ class Robo:
         t1 = Thread(target=self.sense_act, args=(tabuleiro, lock_tabuleiro))
         t2 = Thread(target=self.housekeeping)
         t1.start()
-        t2.start()
+        t2.start() 
 
     # Movimento aleatório no tabuleiro, respeitando os limites
     def mover(self):
-        dx = random.randint(-1, 1)
-        dy = random.randint(-1, 1)
-
-        # Protege o acesso às variáveis compartilhadas com locks
-        with self.x.get_lock(), self.y.get_lock(), self.velocidade.get_lock():
-            self.x.value += dx * self.velocidade.value
-            self.y.value += dy * self.velocidade.value
-
-            # Limita dentro dos limites do tabuleiro
-            self.x.value = max(0, min(39, self.x.value))
-            self.y.value = max(0, min(19, self.y.value))
+        movimentos = [(0, -1), (0, 1), (1, 0), (-1, 0)]  # N, S, L, O
+        dx, dy = random.choice(movimentos)
+    
+        self.x.value += dx * self.velocidade.value
+        self.y.value += dy * self.velocidade.value
+        self.x.value = max(0, min(39, self.x.value))
+        self.y.value = max(0, min(19, self.y.value))
 
     # Thread responsável pelo comportamento (ação)
     def sense_act(self, tabuleiro, lock_tabuleiro):
-        ultimo_x, ultimo_y = None, None
-        
-        while self.vivo.value == 1:
-            # Limpa a posição anterior (se existir)
-            if ultimo_x is not None and ultimo_y is not None:
-                with lock_tabuleiro: 
-                    indice_anterior = ultimo_y * 20 + ultimo_x
-                    tabuleiro[indice_anterior] = ' '
-            
-            # Atualiza movimento
+        while self.status.value == 'V':
+            #print(f'Robo: {self.id} coordenada ({self.x.value},{self.y.value}) - Energia: {self.energia.value}')
             self.mover()
             self.energia.value -= 1
-            
-            # Armazena a nova posição (com lock)
-            with lock_tabuleiro:  
-                indice_atual = self.y.value * 20 + self.x.value
-                tabuleiro[indice_atual] = self.id
-            
-            ultimo_x, ultimo_y = self.x.value, self.y.value
-            
-            # Atualiza a exibição (com lock)
-            with lock_tabuleiro: 
-                Jogo.Apresentar(tabuleiro)
-
-            system('cls')
+            with open('log.txt', 'a') as arquivo_log:
+                arquivo_log.write(f"Robo: {self.id} coordenada ({self.x.value},{self.y.value}) - Energia: {self.energia.value}\n")
 
     # Thread responsável por "matar" o robô se acabar a energia
     def housekeeping(self):
-        while self.vivo.value == 1:
-            with self.energia.get_lock():
-                if self.energia.value < 1:
-                    self.vivo.value = 0
+        while self.status.value == 'V':
+            if self.energia.value < 1:
+                self.status.value = 'M'
