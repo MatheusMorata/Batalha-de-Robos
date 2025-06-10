@@ -1,7 +1,7 @@
 import multiprocessing
 import threading
 import queue
-
+import random
 from robo.sense_act import sense_act
 from robo.housekeeping import housekeeping
 
@@ -9,7 +9,7 @@ class RoboProcess(multiprocessing.Process):
     def __init__(self, robot_id):
         super().__init__()
         self.robot_id = robot_id
-        self.energy = 100  # Inicializa energia
+        self.energy = random.randint(10, 100)   # Inicializa energia
 
     def run(self):
         lock = threading.Lock()
