@@ -10,6 +10,10 @@ class RoboProcesso(multiprocessing.Process):
         super().__init__()
         self.id_robo = id_robo
         self.energia = random.randint(10, 100)
+        self.forca = random.randint(1, 10)
+        self.velocidade = random.randint(1, 5)
+        self.X = random.randint(0,39)
+        self.Y = random.randint(0,19)
 
     def run(self):
         print(f"Robo {self.id_robo} iniciado com energia: {self.energia}")
