@@ -1,24 +1,13 @@
-from multiprocessing import *
-from Jogo import *
+from robo.Robo import RoboProcess
 
-# Debbugando
-if __name__ == '__main__':
-    try:
-        # Variáveis 
-        numRobos = 4 
-        numBaterias = 10
-        processos = []
+if __name__ == "__main__":
+    robos = []
+    for i in range(4):
+        r = RoboProcess(robot_id=i + 1)
+        robos.append(r)
+        r.start()
 
-        tabuleiro = Array('u', ' ' * 800)
-        robos = CriarRobos(numRobos)
-        baterias = CriarBaterias(numBaterias)
-        lock_tabuleiro = Lock()
+    for r in robos:
+        r.join()
 
-        # Cria um processo para cada robô 
-        for robo in robos:
-            p = Process(target=robo.iniciar_threads, args=(tabuleiro, lock_tabuleiro))
-            p.start()
-            processos.append(p)
-  
-    except Exception as e:
-        print(e)
+    print("Todos os robôs finalizaram.")
