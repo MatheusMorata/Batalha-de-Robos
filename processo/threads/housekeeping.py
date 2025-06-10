@@ -1,10 +1,10 @@
 import queue
 
-def housekeeping(robot_id, lock, log_queue):
+def housekeeping(id_robo, trava, fila_logs):
     while True:
         try:
-            msg = log_queue.get(timeout=2)
-            with lock:
+            msg = fila_logs.get(timeout=2)
+            with trava:
                 print(msg)
             if "Energia esgotada" in msg:
                 break

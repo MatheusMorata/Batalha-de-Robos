@@ -1,13 +1,13 @@
-from robo.Robo import RoboProcess
+from processo.Robo import RoboProcesso
 
 if __name__ == "__main__":
     robos = []
     for i in range(4):
-        r = RoboProcess(robot_id=i + 1)
-        robos.append(r)
-        r.start()
+        robo = RoboProcesso(id_robo=i + 1)
+        robos.append(robo)
+        robo.start()
 
-    for r in robos:
-        r.join()
+    for robo in robos:
+        robo.join()
 
     print("Todos os robôs finalizaram.")
