@@ -1,20 +1,14 @@
 from multiprocessing import Process
-from processo.Robo import Robo
 from view.Tabuleiro import imprimir_tabuleiro
+from utils.Utils import criarRobos
 
 if __name__ == '__main__':
     # Debuggando
-    robos = []
-    processos = []
-    robos.append(Robo('A')) 
-    robos.append(Robo('B')) 
-    robos.append(Robo('C')) 
-    robos.append(Robo('D'))   
+    numRobos = 4
+    robos = criarRobos(numRobos)
+    processos = [Process(target=robo.run) for robo in robos]
 
     imprimir_tabuleiro(robos)
-
-    for r in robos:
-        processos.append(Process(target=r.run))
     
-    for i in range(0, len(processos)):
+    for i in range(0, numRobos):
         processos[i].start()
