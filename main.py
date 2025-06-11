@@ -1,6 +1,7 @@
 from multiprocessing import Process
 from processo.Robo import Robo
 from view.Tabuleiro import imprimir_tabuleiro
+
 if __name__ == '__main__':
     # Debuggando
     robos = []
