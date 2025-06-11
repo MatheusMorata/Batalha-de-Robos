@@ -1,22 +1,26 @@
-def imprimir_tabuleiro(robos, baterias):
+def imprimir_tabuleiro(robos, baterias=[]):
     largura = 40
     altura = 20
-
-    # Criando tabuleiro vazio
-    tabuleiro = [['.' for _ in range(largura)] for _ in range(altura)]
-
-    # Adiciona os robôs ao tabuleiro
+    
+    # Criar tabuleiro vazio
+    tabuleiro = [[" " for _ in range(largura)] for _ in range(altura)]
+    
+    # Posicionar robôs
     for robo in robos:
         x, y = robo.X, robo.Y
         if 0 <= x < largura and 0 <= y < altura:
-            tabuleiro[y][x] = str(robo.id)[:1]  # Apenas 1 char
+            id_str = str(robo.id)[-1]
+            tabuleiro[y][x] = id_str
 
-    # Adiciona as baterias ao tabuleiro
+    # Posicionar baterias (sem sobrescrever robôs)
     for bateria in baterias:
         x, y = bateria.X, bateria.Y
         if 0 <= x < largura and 0 <= y < altura:
-            tabuleiro[y][x] = bateria.id
+            if tabuleiro[y][x] == " ":
+                tabuleiro[y][x] = str(bateria.id)
 
-    # Imprime o tabuleiro
+    # Imprimir o tabuleiro
+    print("-" * (largura + 2))
     for linha in tabuleiro:
-        print(' '.join(linha))
+        print("|" + "".join(linha) + "|")
+    print("-" * (largura + 2))

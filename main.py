@@ -10,7 +10,7 @@ if __name__ == '__main__':
     baterias = criarBaterias(numBaterias)
     processos = [Process(target=robo.run) for robo in robos]
 
-    imprimir_tabuleiro(robos)
+    imprimir_tabuleiro(robos, baterias)
     
     for i in range(0, numRobos):
         processos[i].start()
