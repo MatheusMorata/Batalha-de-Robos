@@ -15,7 +15,6 @@ class RoboProcesso(multiprocessing.Process):
         self.X = random.randint(0,39)
         self.Y = random.randint(0,19)
         
-    @property
     def poder(self):
         return 2 * self.forca + self.energia
 
