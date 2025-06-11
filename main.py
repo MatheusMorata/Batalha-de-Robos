@@ -1,13 +1,16 @@
-from processo.Robo import RoboProcesso
-
-if __name__ == "__main__":
+from multiprocessing import Process
+from processo.Robo import Robo
+if __name__ == '__main__':
+    # Debuggando
     robos = []
-    for i in range(4):
-        robo = RoboProcesso(id_robo=i + 1)
-        robos.append(robo)
-        robo.start()
-
-    for robo in robos:
-        robo.join()
-
-    print("Todos os robôs finalizaram.")
+    processos = []
+    robos.append(Robo('A')) 
+    robos.append(Robo('B')) 
+    robos.append(Robo('C')) 
+    robos.append(Robo('D'))   
+     
+    for r in robos:
+        processos.append(Process(target=r.run))
+    
+    for i in range(0, len(processos)):
+        processos[i].start()
