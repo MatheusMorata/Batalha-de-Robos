@@ -14,12 +14,13 @@ class RoboProcesso(multiprocessing.Process):
         self.velocidade = random.randint(1, 5)
         self.X = random.randint(0,39)
         self.Y = random.randint(0,19)
-
+        
+    @property
     def poder(self):
         return 2 * self.forca + self.energia
 
     def run(self):
-        print(f"Robo {self.id_robo} iniciado com energia: {self.energia} e poder: {self.calcular_poder()}")
+        print(f"Robo {self.id_robo} iniciado com energia: {self.energia} e poder: {self.poder()}")
         trava = threading.Lock()
         fila_logs = queue.Queue()
 
