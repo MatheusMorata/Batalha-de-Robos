@@ -31,7 +31,9 @@ class Robo():
 
     # Inicia o processo, que contém duas threads
     def run(self):
+        print(f'Robô {self.id} iniciado')
         t1 = threading.Thread(target=sense_act, args=(self,))
         t2 = threading.Thread(target=housekeeping, args=(self,))
         t1.start()
         t2.start()
+        print(f'Robô {self.id} finalizado')
