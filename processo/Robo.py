@@ -18,34 +18,8 @@ class Robo():
         return 2 * self.forca + self.energia
     
     def mover(self, tabuleiro):
-        largura = 40  
-        direcoes = ['cima', 'baixo', 'esquerda', 'direita']
-        random.shuffle(direcoes)  
-
-        for direcao in direcoes:
-            nova_pos = self.posicao
-
-            if direcao == 'cima':
-                nova_pos -= self.velocidade * largura
-            elif direcao == 'baixo':
-                nova_pos += self.velocidade * largura
-            elif direcao == 'esquerda':
-                # impede mover para outra linha
-                if (self.posicao % largura) - self.velocidade < 0:
-                    continue
-                nova_pos -= self.velocidade
-            elif direcao == 'direita':
-                if (self.posicao % largura) + self.velocidade >= largura:
-                    continue
-                nova_pos += self.velocidade
-
-            # checa se está dentro dos limites do tabuleiro
-            if 0 <= nova_pos < len(tabuleiro):
-                if tabuleiro[nova_pos] == '':  # posição livre
-                    tabuleiro[self.posicao] = ''   # limpa posição anterior
-                    tabuleiro[nova_pos] = self.id      # marca nova posição
-                    self.posicao = nova_pos
-                    break  # movimento realizado
+        # CONTINUAR IMPLEMENTAÇÃO
+        tabuleiro[self.posicao] = self.id
 
     # Inicia o processo, que contém duas threads
     def run(self, tabuleiro):
