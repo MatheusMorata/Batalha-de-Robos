@@ -9,10 +9,12 @@ if __name__ == '__main__':
     numBaterias = 10
     robos = criarRobos(numRobos)
     baterias = criarBaterias(numBaterias)
-    processos = [Process(target=robo.run) for robo in robos]
-    tabuleiro = Array('u', '' * 800) # Memória compartilhada
-
-    imprimir_tabuleiro(robos, baterias)
+    tabuleiro = Array('u', ' ' * 800) # Memória compartilhada
+    processos = [Process(target=robo.run, args=(tabuleiro,)) for robo in robos]
+    
+    imprimir_tabuleiro(tabuleiro)
     
     for i in range(0, numRobos):
         processos[i].start()
+
+    imprimir_tabuleiro(tabuleiro)
