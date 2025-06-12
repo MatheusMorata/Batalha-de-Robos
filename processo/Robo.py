@@ -30,10 +30,10 @@ class Robo():
             self.X = max(0, self.X - self.velocidade)
 
     # Inicia o processo, que contém duas threads
-    def run(self):
+    def run(self, tabuleiro):
         print(f'Robô {self.id} iniciado')
-        t1 = threading.Thread(target=sense_act, args=(self,))
-        t2 = threading.Thread(target=housekeeping, args=(self,))
+        t1 = threading.Thread(target=sense_act, args=(self, tabuleiro))
+        t2 = threading.Thread(target=housekeeping, args=(self, tabuleiro))
         t1.start()
         t2.start()
         print(f'Robô {self.id} finalizado')

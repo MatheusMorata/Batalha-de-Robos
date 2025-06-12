@@ -1,4 +1,4 @@
-def sense_act(robo):
+def sense_act(robo, tabuleiro):
     while(robo.status == 'vivo'):
         print(f'Robo {robo.id} coordenadas({robo.X}, {robo.Y})')
         robo.mover()
