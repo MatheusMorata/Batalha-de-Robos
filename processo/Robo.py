@@ -7,10 +7,10 @@ class Robo():
         self.numRobo = N # Determina o robô que o processo vai controlar
 
     # Inicia o processo, que contém duas threads
-    def run(self, tabuleiro, ):
-        print(f'Robô {self.id} iniciado')
-        t1 = threading.Thread(target=sense_act, args=(self, tabuleiro))
-        t2 = threading.Thread(target=housekeeping, args=(tabuleiro,))
+    def run(self, tabuleiro, ID, F, E, P, S):
+        print(f'Robô {self.numRobo} iniciado')
+        t1 = threading.Thread(target=sense_act, args=(self, tabuleiro, ID, F, E, P, S))
+        t2 = threading.Thread(target=housekeeping, args=(tabuleiro, ID, F, E, P, S))
         t1.start()
         t2.start()
-        print(f'Robô {self.id} finalizado')
+        print(f'Robô {self.numRobo} finalizado')
