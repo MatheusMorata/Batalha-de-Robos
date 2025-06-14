@@ -9,7 +9,6 @@ class Robo():
         # Atributos
         self.id = ID
         self.forca = random.randint(1, 10)
-        self.velocidade = random.randint(1, 5)
         self.energia = random.randint(10, 100)
         self.posicao = random.randint(0, 799)
         self.status = 'vivo'
@@ -19,6 +18,7 @@ class Robo():
     
     def mover(self, tabuleiro):
         # CONTINUAR IMPLEMENTAÇÃO
+
         tabuleiro[self.posicao] = self.id
 
     # Inicia o processo, que contém duas threads
