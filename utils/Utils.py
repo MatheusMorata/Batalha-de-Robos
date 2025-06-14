@@ -26,6 +26,8 @@ def robosVivos(array):
         if(array[i] == 'M'):
             vivos += 1
     return vivos
+
+#def combate(forca, energia):
   
 def log(mensagem):
     with open('log.txt', 'a') as arquivo:
