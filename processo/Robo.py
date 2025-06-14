@@ -8,9 +8,7 @@ class Robo():
 
     # Inicia o processo, que contém duas threads
     def run(self, tabuleiro, ID, F, E, P, S):
-        print(f'Robô {self.numRobo} iniciado')
-        t1 = threading.Thread(target=sense_act, args=(tabuleiro, ID, F, E, P, S))
+        t1 = threading.Thread(target=sense_act, args=(self, tabuleiro, ID, F, E, P, S))
         t2 = threading.Thread(target=housekeeping, args=(tabuleiro, ID, F, E, P, S))
         t1.start()
         t2.start()
-        print(f'Robô {self.numRobo} finalizado')
