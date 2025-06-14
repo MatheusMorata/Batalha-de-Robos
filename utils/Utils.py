@@ -20,3 +20,6 @@ def posicao(array):
         array[i] = random.randint(0, 799)
     return array 
 
+def log(mensagem):
+    with open('log.txt', 'w') as arquivo:
+        arquivo.write(mensagem)
