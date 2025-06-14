@@ -20,6 +20,13 @@ def posicao(array):
         array[i] = random.randint(0, 799)
     return array 
 
+def robosVivos(array):
+    vivos = 0
+    for i in range(0, len(array)):
+        if(array[i] == 'M'):
+            vivos += 1
+    return vivos
+  
 def log(mensagem):
     with open('log.txt', 'w') as arquivo:
         arquivo.write(mensagem)
