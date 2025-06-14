@@ -12,10 +12,6 @@ if __name__ == '__main__':
     tabuleiro = Array('u', ' ' * 800) # Memória compartilhada
     processos = [Process(target=robo.run, args=(tabuleiro,)) for robo in robos]
     
-    imprimir_tabuleiro(tabuleiro)
-    
     for i in range(0, numRobos):
         processos[i].start()
         processos[i].join()
-        
-    imprimir_tabuleiro(tabuleiro)
