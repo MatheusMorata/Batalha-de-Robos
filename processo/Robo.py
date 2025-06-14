@@ -17,6 +17,31 @@ class Robo():
     def poder(self):
         return 2 * self.forca + self.energia
     
+    def roboProximo(self, tabuleiro):
+        largura = 40 
+        u = self.posicao  
+
+        # Verificar Norte
+        if u >= largura and tabuleiro[u - largura].isupper():
+            return True
+
+        # Verificar Sul
+        if u < (len(tabuleiro) - largura) and tabuleiro[u + largura].isupper():
+            return True
+
+        # Verificar Leste
+        if (u % largura) < (largura - 1) and tabuleiro[u + 1].isupper():
+            return True
+
+        # Verificar Oeste
+        if (u % largura) > 0 and tabuleiro[u - 1].isupper():
+            return True
+
+        return False  # Nenhum robô encontrado nas direções adjacentes
+
+
+    #def bateriaProximo():
+
     def mover(self, tabuleiro):
         direcao = random.choice(['N', 'S', 'L', 'O'])
         u = self.posicao
