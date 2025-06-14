@@ -2,7 +2,7 @@ from time import time, sleep
 from view.Tabuleiro import imprimir_tabuleiro 
 
 def sense_act(robo, tabuleiro):
-    frame_time = 1 / 10  # ~10 FPS, mais fácil de ver em terminal
+    frame_time = 1 / 10  # ~10 FPS
 
     while robo.status == 'vivo':
         start_time = time()
