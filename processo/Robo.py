@@ -63,6 +63,7 @@ class Robo():
 
         return False  # Nenhuma bateria encontrada nas direções adjacentes
 
+    # Função para mover o robô (Norte, Sul, Leste, Oeste)
     def mover(self, tabuleiro):
         direcao = random.choice(['N', 'S', 'L', 'O'])
         u = self.posicao
