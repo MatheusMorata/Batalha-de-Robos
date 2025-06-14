@@ -3,11 +3,11 @@ def sense_act(robo, tabuleiro):
         robo.mover(tabuleiro)
         robo.energia -= 1
 
-        if(robo.roboProximo() == True):
-            print(f'Robo {robo.id} encontrou um robô')
-            
-        if(robo.bateriaProxima() == True):
-            print(f'Robo {robo.id} encontrou uma bateria')
+        #if(robo.roboProximo(tabuleiro) == True):
+        #    print(f'Robo {robo.id} encontrou um robô')
+
+        #if(robo.bateriaProximo(tabuleiro) == True):
+        #    print(f'Robo {robo.id} encontrou uma bateria')
 
         if(robo.energia < 1):
             robo.status = 'morto'
