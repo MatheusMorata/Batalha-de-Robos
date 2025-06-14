@@ -28,5 +28,5 @@ def robosVivos(array):
     return vivos
   
 def log(mensagem):
-    with open('log.txt', 'w') as arquivo:
+    with open('log.txt', 'a') as arquivo:
         arquivo.write(mensagem)
