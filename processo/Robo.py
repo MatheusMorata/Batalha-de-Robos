@@ -17,8 +17,22 @@ class Robo():
         return 2 * self.forca + self.energia
     
     def mover(self, tabuleiro):
-        # CONTINUAR IMPLEMENTAÇÃO
+        direcao = random.choice(['N', 'S', 'L', 'O'])
+        u = self.posicao
 
+        if direcao == 'N' and u >= 20:
+            self.posicao = u - 20
+
+        elif direcao == 'S' and u < 780:
+            self.posicao = u + 20
+
+        elif direcao == 'L' and (u % 20) < 19:
+            self.posicao = u + 1
+
+        elif direcao == 'O' and (u % 20) > 0:
+            self.posicao = u - 1
+
+        # Marca a nova posição no tabuleiro com o ID do robô
         tabuleiro[self.posicao] = self.id
 
     # Inicia o processo, que contém duas threads
