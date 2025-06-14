@@ -16,5 +16,6 @@ if __name__ == '__main__':
     
     for i in range(0, numRobos):
         processos[i].start()
-
+        processos[i].join()
+        
     imprimir_tabuleiro(tabuleiro)

@@ -7,7 +7,7 @@ def imprimir_tabuleiro(tabuleiro):
         linha = "|"
         for x in range(largura):
             idx = y * largura + x
-            linha += tabuleiro[idx]
+            linha += str(tabuleiro[idx])  # Converte o conteúdo para string
         linha += "|"
         print(linha)
     print("-" * (largura + 2))
