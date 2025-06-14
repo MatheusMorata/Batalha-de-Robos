@@ -1,91 +1,13 @@
 import threading
-import random
 from processo.threads.sense_act import sense_act
 from processo.threads.housekeeping import housekeeping
 
 class Robo():
-    # Construtor
-    def __init__(self, ID):
-        # Atributos
-        self.id = ID
-        self.forca = random.randint(1, 10)
-        self.energia = random.randint(10, 100)
-        self.posicao = random.randint(0, 799)
-        self.status = 'vivo'
-
-    @property
-    def poder(self):
-        return 2 * self.forca + self.energia
-    
-    # Verifica se existe um robô Norte, Sul, Leste ou Oeste do robô
-    def roboProximo(self, tabuleiro):
-        largura = 40 
-        u = self.posicao  
-
-        # Verificar Norte
-        if u >= largura and tabuleiro[u - largura].isupper():
-            return True
-
-        # Verificar Sul
-        if u < (len(tabuleiro) - largura) and tabuleiro[u + largura].isupper():
-            return True
-
-        # Verificar Leste
-        if (u % largura) < (largura - 1) and tabuleiro[u + 1].isupper():
-            return True
-
-        # Verificar Oeste
-        if (u % largura) > 0 and tabuleiro[u - 1].isupper():
-            return True
-
-        return False  # Nenhum robô encontrado nas direções adjacentes
-
-    # Verifica se existe uma bateria Norte, Sul, Leste ou Oeste do robô
-    def bateriaProximo(self, tabuleiro):
-        largura = 40  
-        u = self.posicao  
-
-        # Verificar Norte
-        if u >= largura and tabuleiro[u - largura] == 'ϟ':
-            return True
-
-        # Verificar Sul
-        if u < (len(tabuleiro) - largura) and tabuleiro[u + largura] == 'ϟ':
-            return True
-
-        # Verificar Leste
-        if (u % largura) < (largura - 1) and tabuleiro[u + 1] == 'ϟ':
-            return True
-
-        # Verificar Oeste
-        if (u % largura) > 0 and tabuleiro[u - 1] == 'ϟ':
-            return True
-
-        return False  # Nenhuma bateria encontrada nas direções adjacentes
-
-    # Função para mover o robô (Norte, Sul, Leste, Oeste)
-    def mover(self, tabuleiro):
-        direcao = random.choice(['N', 'S', 'L', 'O'])
-        u = self.posicao
-        tabuleiro[u] = ' ' # Apaga a última posição 
-
-        if direcao == 'N' and u >= 20:
-            self.posicao = u - 20
-
-        elif direcao == 'S' and u < 780:
-            self.posicao = u + 20
-
-        elif direcao == 'L' and (u % 20) < 19:
-            self.posicao = u + 1
-
-        elif direcao == 'O' and (u % 20) > 0:
-            self.posicao = u - 1
-
-        # Marca a nova posição no tabuleiro com o ID do robô
-        tabuleiro[self.posicao] = self.id
+    def __init__(self, N):
+        self.numRobo = N # Determina o robô que o processo vai controlar
 
     # Inicia o processo, que contém duas threads
-    def run(self, tabuleiro):
+    def run(self, tabuleiro, ):
         print(f'Robô {self.id} iniciado')
         t1 = threading.Thread(target=sense_act, args=(self, tabuleiro))
         t2 = threading.Thread(target=housekeeping, args=(tabuleiro,))
