@@ -13,6 +13,7 @@ class Robo():
         self.posicao = random.randint(0, 799)
         self.status = 'vivo'
 
+    @property
     def poder(self):
         return 2 * self.forca + self.energia
     
