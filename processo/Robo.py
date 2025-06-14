@@ -20,7 +20,8 @@ class Robo():
     def mover(self, tabuleiro):
         direcao = random.choice(['N', 'S', 'L', 'O'])
         u = self.posicao
-        tabuleiro[u] = ' '
+        tabuleiro[u] = ' ' # Apaga a última posição 
+
         if direcao == 'N' and u >= 20:
             self.posicao = u - 20
 
