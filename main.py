@@ -7,7 +7,6 @@ import os
 
 # Imports da estrutura existente (adaptados)
 from processo.Robo import Robo
-from utils.Utils import *  # Funções utilitárias existentes
 from view.Tabuleiro import VisualizadorTabuleiro  # Visualizador existente
 
 # Novos imports para compliance
