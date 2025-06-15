@@ -20,6 +20,7 @@ class Robo():
 
         self.sense_act_thread = None
         self.housekeeping_thread = None
+        self.simular_deadlock = False
 
     # Inicia o processo, que contém duas threads
     def run(self):
@@ -41,6 +42,32 @@ class Robo():
         self.housekeeping_thread.join()
         print(f"Robô {self.robo_id} encerrando.")
 
+    def _provocar_deadlock(self):
+        """Simula deadlock real entre robôs 0 e 1."""
+        if self.robo_id == 0:
+            self.logger.info("Tentando pegar battery_mutex")
+            self.lock_manager.battery_mutexes[0].acquire()
+            self.logger.info("Pegou battery_mutex")
+            time.sleep(1)
+            self.logger.info("Tentando pegar grid_mutex")
+            self.lock_manager.grid_mutex.acquire()
+            self.logger.info("Pegou grid_mutex")
+            self.lock_manager.grid_mutex.release()
+            self.lock_manager.battery_mutexes[0].release()
+            self.logger.info("Liberou locks")
+
+        elif self.robo_id == 1:
+            self.logger.info("Tentando pegar grid_mutex")
+            self.lock_manager.grid_mutex.acquire()
+            self.logger.info("Pegou grid_mutex")
+            time.sleep(1)
+            self.logger.info("Tentando pegar battery_mutex")
+            self.lock_manager.battery_mutexes[0].acquire()
+            self.logger.info("Pegou battery_mutex")
+            self.lock_manager.battery_mutexes[0].release()
+            self.lock_manager.grid_mutex.release()
+            self.logger.info("Liberou locks")
+
     def sense_act(self):
         """
         Thread sense_act - Ciclo principal conforme especificação:
@@ -50,6 +77,9 @@ class Robo():
         4. Executa ação
         5. Libera locks
         """
+        if self.robo_id in [0, 1] and self.simular_deadlock:
+            self._provocar_deadlock()
+
         while self.running and not self.game_state.get_flag('game_over'):
             try:
                 robot_data = self.game_state.get_robot_data(self.robo_id)
