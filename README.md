@@ -22,3 +22,9 @@ cd Batalha-de-Robos
 ```
 
 2. Execute projeto
+
+```
+
+python3 main.py
+
+```
