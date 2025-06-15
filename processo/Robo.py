@@ -68,6 +68,20 @@ class Robo():
             self.lock_manager.grid_mutex.release()
             self.logger.info("Liberou locks")
 
+    def _prevenir_deadlock(self):
+        """Previne deadlock adquirindo locks sempre na mesma ordem."""
+        self.logger.info("Prevenção: adquirindo grid_mutex")
+        self.lock_manager.grid_mutex.acquire()
+        self.logger.info("Prevenção: adquirindo battery_mutex")
+        self.lock_manager.battery_mutexes[0].acquire()
+        self.logger.info("Locks adquiridos com sucesso (prevenção)")
+
+        time.sleep(1)  # Simula alguma operação segura
+
+        self.lock_manager.battery_mutexes[0].release()
+        self.lock_manager.grid_mutex.release()
+        self.logger.info("Locks liberados com sucesso (prevenção)")
+
     def sense_act(self):
         """
         Thread sense_act - Ciclo principal conforme especificação:
@@ -79,6 +93,8 @@ class Robo():
         """
         if self.robo_id in [0, 1] and self.simular_deadlock:
             self._provocar_deadlock()
+        elif self.robo_id in [0, 1] and not self.simular_deadlock:
+            self._prevenir_deadlock()
 
         while self.running and not self.game_state.get_flag('game_over'):
             try:
