@@ -21,7 +21,7 @@ cd Batalha-de-Robos
 
 ```
 
-2. Execute projeto
+2. Execute o projeto
 
 ```
 
