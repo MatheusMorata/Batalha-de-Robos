@@ -14,7 +14,11 @@ O jogo conta com um visualizador gráfico em terminal, mostrando em tempo real o
 
 1. Clone o repositório
 
-`git clone https://github.com/MatheusMorata/Batalha-de-Robos.git<br>
-cd Batalha-de-Robos`
+```
+
+git clone https://github.com/MatheusMorata/Batalha-de-Robos.git
+cd Batalha-de-Robos
+
+```
 
 2. Execute projeto
