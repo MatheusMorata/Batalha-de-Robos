@@ -20,7 +20,7 @@ class Robo():
 
         self.sense_act_thread = None
         self.housekeeping_thread = None
-        self.simular_deadlock = False
+        self.simular_deadlock = False # Feature Flag para o deadlock
 
     # Inicia o processo, que contém duas threads
     def run(self):
