@@ -91,6 +91,8 @@ class Robo():
         4. Executa ação
         5. Libera locks
         """
+        
+        # Lógica da Feature Flag caso deadlock esteja como True ou False
         if self.robo_id in [0, 1] and self.simular_deadlock:
             self._provocar_deadlock()
         elif self.robo_id in [0, 1] and not self.simular_deadlock:
