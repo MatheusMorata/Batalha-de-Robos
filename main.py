@@ -14,7 +14,7 @@ from processo.game_state import GameState
 from processo.lock_manager import LockManager
 
 class ArenaManager:
-    """Gerenciador principal da arena - integra com código existente"""
+    """Gerenciador principal da arena"""
 
     def __init__(self):
         self.game_state = None
@@ -24,24 +24,24 @@ class ArenaManager:
 
     def initialize_game(self):
         """Inicializa o ambiente do jogo"""
-        print("🚀 Iniciando Arena dos Processos...")
+        print("Iniciando Arena dos Processos...")
 
         # Criar memória compartilhada
-        print("📝 Criando memória compartilhada...")
+        print("Criando memória compartilhada...")
         self.game_state = GameState("batalha_robos", create=True)
 
         # Criar sistema de locks
-        print("🔒 Criando sistema de locks...")
+        print("Criando sistema de locks...")
         self.lock_manager = LockManager()
 
         # Inicializar ambiente (barreiras, baterias, etc.)
         self._setup_environment()
 
-        print("✅ Inicialização concluída!")
+        print("Inicialização concluída!")
 
     def _setup_environment(self):
         """Configura o ambiente inicial do jogo"""
-        print("🏗️  Inicializando ambiente...")
+        print("🏗Inicializando ambiente...")
 
         # Criar barreiras nas bordas
         for x in range(40):
@@ -87,11 +87,11 @@ class ArenaManager:
         # Marcar inicialização como concluída
         self.game_state.set_flag('init_done', 1)
 
-        print(f"✅ Ambiente inicializado: 6 barreiras internas, 10 baterias")
+        print(f"Ambiente inicializado: 6 barreiras internas, 10 baterias")
 
     def create_robots(self):
         """Cria e inicia os processos dos robôs"""
-        print("🤖 Criando robôs...")
+        print("Criando robôs...")
         for robot_id in range(4):
             robot_attrs = {
                 'id': robot_id,
@@ -116,7 +116,7 @@ class ArenaManager:
             self.robot_processes.append(robot_process)
 
             robot_data = self.game_state.get_robot_data(robot_id)
-            print(f"✅ Robô {robot_id} iniciado (Força:{robot_attrs['forca']}, Energia:{robot_attrs['energia']}, Velocidade:{robot_attrs['velocidade']})")
+            print(f"Robô {robot_id} iniciado (Força:{robot_attrs['forca']}, Energia:{robot_attrs['energia']}, Velocidade:{robot_attrs['velocidade']})")
 
 
     def _robot_main(self, robot_id, shm_name):
@@ -132,11 +132,11 @@ class ArenaManager:
             robot.run()
 
         except Exception as e:
-            print(f"❌ Erro no robô {robot_id}: {e}")
+            print(f"Erro no robô {robot_id}: {e}")
 
     def start_viewer(self):
         """Inicia o visualizador usando o código existente modificado"""
-        print("🖥️  Iniciando visualizador...")
+        print("Iniciando visualizador...")
 
         self.viewer_process = VisualizadorTabuleiro(
             self.game_state.name,
@@ -154,7 +154,7 @@ class ArenaManager:
             viewer.run()
 
         except Exception as e:
-            print(f"❌ Erro no visualizador: {e}")
+            print(f"Erro no visualizador: {e}")
 
     def wait_for_game_end(self):
         """Aguarda o fim do jogo"""
@@ -180,11 +180,11 @@ class ArenaManager:
                                 break
 
         except KeyboardInterrupt:
-            print("\n⏹️  Jogo interrompido pelo usuário")
+            print("\n⏹Jogo interrompido pelo usuário")
 
     def cleanup(self):
         """Limpa todos os recursos"""
-        print("🧹 Limpando recursos...")
+        print("Limpando recursos...")
 
         # Terminar processos
         for process in self.robot_processes:
@@ -200,7 +200,7 @@ class ArenaManager:
         if self.game_state:
             self.game_state.cleanup()
 
-        print("✅ Limpeza concluída!")
+        print("Limpeza concluída!")
 
     def print_game_summary(self):
         """Imprime o resumo do jogo (com tratamento de erro)"""
@@ -212,18 +212,18 @@ class ArenaManager:
             if self.game_state and self.game_state.shm:
                 winner_id = self.game_state.get_flag('winner_id')
                 if winner_id >= 0:
-                    print(f"🏆 Vencedor: Robô {winner_id}")
+                    print(f"Vencedor: Robô {winner_id}")
                 else:
-                    print("🏆 Nenhum vencedor (empate ou erro)")
+                    print("Nenhum vencedor (empate ou erro)")
             else:
-                print("⚠️ Estado do jogo não disponível")
+                print("⚠Estado do jogo não disponível")
 
         except Exception as e:
-            print(f"❌ Erro ao gerar resumo: {str(e)}")
+            print(f"Erro ao gerar resumo: {str(e)}")
 
 def signal_handler(signum, frame):
     """Handler para sinais do sistema"""
-    print("\n⏹️  Recebido sinal de interrupção...")
+    print("\nRecebido sinal de interrupção...")
     sys.exit(0)
 
 def run_robot_process(shm_name, lock_manager, robo_id, robot_attrs):
@@ -240,7 +240,7 @@ def run_robot_process(shm_name, lock_manager, robo_id, robot_attrs):
     robo.run()
 
 def main():
-    """Função principal - integrada com estrutura existente"""
+    """Função principal"""
 
     # Configurar handler de sinais
     signal.signal(signal.SIGINT, signal_handler)
@@ -260,7 +260,7 @@ def main():
         arena.create_robots()
 
         # Aguardar estabilização
-        print("⏳ Aguardando estabilização do sistema...")
+        print("Aguardando estabilização do sistema...")
         time.sleep(2)
 
         # Iniciar visualizador
@@ -281,7 +281,7 @@ def main():
         arena.print_game_summary()
 
     except Exception as e:
-        print(f"❌ Erro durante execução: {e}")
+        print(f"Erro durante execução: {e}")
         import traceback
         traceback.print_exc()
 
